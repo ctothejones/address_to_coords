@@ -4,7 +4,13 @@ require 'json'
 class AddressesController < ApplicationController
 
   def fetch_coordinates
-    @address = params["address"]
+
+    if params[:address].nil?
+      @address = "Northwestern University"
+    else
+      @address = params["address"]
+    end
+
     @url_safe_address = URI.encode(@address)
 
     url = "http://maps.googleapis.com/maps/api/geocode/json?address=#{@url_safe_address}&sensor=true"
